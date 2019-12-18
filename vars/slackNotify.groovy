@@ -17,6 +17,7 @@ def call(def currentBuild, Map configMap = [:]) {
     "<${currentBuild.absoluteUrl}|${currentBuild.fullDisplayName}> - duration: \
 ${Util.getTimeSpanString(currentBuild.duration)} - ${message}"
   }
+
   def config = configMap as SlackNotifyConfig
 
   if (currentBuild.result == 'SUCCESS') {
@@ -25,10 +26,13 @@ ${Util.getTimeSpanString(currentBuild.duration)} - ${message}"
       && currentBuild.previousBuild.result != 'SUCCESS'
       && config.notifyBackToNormal
     ) {
+      // find the initial non-successful build by traversing backwards
       def firstBadBuild = currentBuild.previousBuild
       while (firstBadBuild.previousBuild?.result && firstBadBuild.previousBuild.result != 'SUCCESS') {
         firstBadBuild = firstBadBuild.previousBuild
       }
+
+      // calculate the amount of time that has passed since the initial non-successful build finished
       def backToNormalTime = (
         (currentBuild.startTimeInMillis + currentBuild.duration)
         - (firstBadBuild.startTimeInMillis + firstBadBuild.duration)
