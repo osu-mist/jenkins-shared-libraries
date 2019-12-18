@@ -14,9 +14,7 @@ def call(def currentBuild, Map configMap = [:]) {
   Closure<String> formatMessage = { String message ->
     "${currentBuild.fullDisplayName} - ${message}"
   }
-
   def config = configMap as SlackNotifyConfig
-  echo "slackNotify library called with config: ${config.dump()}"
 
   if (currentBuild.result == 'SUCCESS') {
     if (
@@ -24,21 +22,21 @@ def call(def currentBuild, Map configMap = [:]) {
       && currentBuild.previousBuild.result != 'SUCCESS'
       && config.notifyBackToNormal
     ) {
-      echo formatMessage("Back to normal")
+      slackSend(message: formatMessage("Back to normal"), color: '#008000')
     } else if (config.notifySuccess) {
-      echo formatMessage("Success")
+      slackSend(message: formatMessage("Success"), color: '#0000FF')
     }
   } else if (currentBuild.result == 'ABORTED' && config.notifyAborted) {
-    echo formatMessage("Aborted")
+    slackSend(message: formatMessage("Aborted"), color: '#000000')
   } else if (currentBuild.result == 'NOT_BUILT' && config.notifyNotBuilt) {
-    echo formatMessage("Not built")
+    slackSend(message: formatMessage("Not built"), color: '#808080')
   } else if (currentBuild.result == 'UNSTABLE' && config.notifyUnstable) {
-    echo formatMessage("Unstable")
+    slackSend(message: formatMessage("Unstable"), color: '#FFFF00')
   } else if (currentBuild.result == 'FAILURE' && config.notifyFailure) {
     if (currentBuild.previousBuild?.result && currentBuild.previousBuild.result == 'SUCCESS') {
-      echo formatMessage("Failure")
+      slackSend(message: formatMessage("Failure"), color: '#FF0000')
     } else if (config.notifyRepeatedFailure) {
-      echo formatMessage("Still failing")
+      slackSend(message: formatMessage("Still failing"), color: '#8B0000')
     }
   }
 }
