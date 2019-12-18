@@ -33,10 +33,14 @@ def call(def currentBuild, Map configMap = [:]) {
   } else if (currentBuild.result == 'UNSTABLE' && config.notifyUnstable) {
     slackSend(message: formatMessage("Unstable"), color: '#FFA500')
   } else if (currentBuild.result == 'FAILURE' && config.notifyFailure) {
-    if (currentBuild.previousBuild?.result && currentBuild.previousBuild.result == 'SUCCESS') {
-      slackSend(message: formatMessage("Failure"), color: '#FF0000')
-    } else if (config.notifyRepeatedFailure) {
+    if (
+      currentBuild.previousBuild?.result
+      && currentBuild.previousBuild.result == 'FAILURE'
+      && config.notifyRepeatedFailure
+    ) {
       slackSend(message: formatMessage("Still failing"), color: '#FF0000')
+    } else {
+      slackSend(message: formatMessage("Failure"), color: '#FF0000')
     }
   }
 }
