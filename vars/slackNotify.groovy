@@ -24,7 +24,18 @@ def call(def currentBuild, Map configMap = [:]) {
       && currentBuild.previousBuild.result != 'SUCCESS'
       && config.notifyBackToNormal
     ) {
-      slackSend(message: formatMessage("Back to normal"), color: '#008000')
+      def firstBadBuild = currentBuild.previousBuild
+      while (firstBadBuild.previousBuild?.result && firstBadBuild.previousBuild.result != 'SUCCESS') {
+        firstBadBuild = firstBadBuild.previousBuild
+      }
+      def backToNormalTime = (
+        (currentBuild.startTimeInMillis + currentBuild.duration)
+        - (firstBadBuild.startTimeInMillis + firstBadBuild.duration)
+      )
+      slackSend(
+        message: "${formatMessage("Back to normal")} after ${Util.getTimeSpanString(backToNormalTime)}",
+        color: '#008000'
+      )
     } else if (config.notifySuccess) {
       slackSend(message: formatMessage("Success"), color: '#008000')
     }
