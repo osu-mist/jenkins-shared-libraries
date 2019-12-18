@@ -24,19 +24,19 @@ def call(def currentBuild, Map configMap = [:]) {
     ) {
       slackSend(message: formatMessage("Back to normal"), color: '#008000')
     } else if (config.notifySuccess) {
-      slackSend(message: formatMessage("Success"), color: '#0000FF')
+      slackSend(message: formatMessage("Success"), color: '#008000')
     }
   } else if (currentBuild.result == 'ABORTED' && config.notifyAborted) {
-    slackSend(message: formatMessage("Aborted"), color: '#000000')
+    slackSend(message: formatMessage("Aborted"), color: '#808080')
   } else if (currentBuild.result == 'NOT_BUILT' && config.notifyNotBuilt) {
-    slackSend(message: formatMessage("Not built"), color: '#808080')
+    slackSend(message: formatMessage("Not built"), color: '#FF1493')
   } else if (currentBuild.result == 'UNSTABLE' && config.notifyUnstable) {
-    slackSend(message: formatMessage("Unstable"), color: '#FFFF00')
+    slackSend(message: formatMessage("Unstable"), color: '#FFA500')
   } else if (currentBuild.result == 'FAILURE' && config.notifyFailure) {
     if (currentBuild.previousBuild?.result && currentBuild.previousBuild.result == 'SUCCESS') {
       slackSend(message: formatMessage("Failure"), color: '#FF0000')
     } else if (config.notifyRepeatedFailure) {
-      slackSend(message: formatMessage("Still failing"), color: '#8B0000')
+      slackSend(message: formatMessage("Still failing"), color: '#FF0000')
     }
   }
 }
