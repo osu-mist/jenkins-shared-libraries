@@ -12,7 +12,7 @@ class SlackNotifyConfig {
 
 def call(def currentBuild, Map configMap = [:]) {
   Closure<String> formatMessage = { String message ->
-    "${currentBuild.fullDisplayName} - ${message}"
+    "<${currentBuild.absoluteUrl}|${currentBuild.fullDisplayName}> - ${message}"
   }
   def config = configMap as SlackNotifyConfig
 
