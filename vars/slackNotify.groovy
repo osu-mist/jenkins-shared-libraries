@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
 
+import hudson.Util
+
 class SlackNotifyConfig {
   boolean notifySuccess = false
   boolean notifyAborted = true
@@ -12,7 +14,7 @@ class SlackNotifyConfig {
 
 def call(def currentBuild, Map configMap = [:]) {
   Closure<String> formatMessage = { String message ->
-    "<${currentBuild.absoluteUrl}|${currentBuild.fullDisplayName}> - ${message}"
+    "<${currentBuild.absoluteUrl}|${currentBuild.fullDisplayName}> - duration: ${Util.getTimeSpanString(currentBuild.duration)} - ${message}"
   }
   def config = configMap as SlackNotifyConfig
 
