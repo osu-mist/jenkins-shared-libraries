@@ -14,7 +14,8 @@ class SlackNotifyConfig {
 
 def call(def currentBuild, Map configMap = [:]) {
   Closure<String> formatMessage = { String message ->
-    "<${currentBuild.absoluteUrl}|${currentBuild.fullDisplayName}> - duration: ${Util.getTimeSpanString(currentBuild.duration)} - ${message}"
+    "<${currentBuild.absoluteUrl}|${currentBuild.fullDisplayName}> - duration: \
+${Util.getTimeSpanString(currentBuild.duration)} - ${message}"
   }
   def config = configMap as SlackNotifyConfig
 
