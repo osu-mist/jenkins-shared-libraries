@@ -1,0 +1,20 @@
+slackNotify(def currentBuild)
+slackNotify(def currentBuild, Map configMap)
+
+
+configMap has the following properties:
+
+boolean notifySuccess
+    Send a notification for every successful build. Default: false
+boolean notifyAborted
+    Send a notification if a build is aborted. Default: true
+boolean notifyNotBuilt
+    Send a notification if a build is not built. Default: true
+boolean notifyUnstable
+    Send a notification if a build is unstable. Default: true
+boolean notifyFailure
+    Send a notification if a build fails. Default: true
+boolean notifyRepeatedFailure
+    Send a notification for repeating build failures. Default: false
+boolean notifyBackToNormal
+    Send a notification for first successful build since non-successful build. Default: true
