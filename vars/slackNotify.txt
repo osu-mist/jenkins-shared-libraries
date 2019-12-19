@@ -1,28 +1,20 @@
-<pre>
-  <code>slackNotify(def currentBuild)</code>
-</pre>
+slackNotify(def currentBuild)
+slackNotify(def currentBuild, Map configMap)
 
-<pre>
-  <code>slackNotify(def currentBuild, Map configMap)</code>
-</pre>
 
-<p></p>
+configMap has the following properties:
 
-<code>configMap</code> has the following properties:
-
-<dl>
-  <dt><code>boolean notifySuccess</code></dt>
-  <dd>Send a notification for every successful build. Default: <code>false</code></dd>
-  <dt><code>boolean notifyAborted</code></dt>
-  <dd>Send a notification if a build is aborted. Default: <code>true</code></dd>
-  <dt><code>boolean notifyNotBuilt</code></dt>
-  <dd>Send a notification if a build is not built. Default: <code>true</code></dd>
-  <dt><code>boolean notifyUnstable</code></dt>
-  <dd>Send a notification if a build is unstable. Default: <code>true</code></dd>
-  <dt><code>boolean notifyFailure</code></dt>
-  <dd>Send a notification if a build fails. Default: <code>true</code></dd>
-  <dt><code>boolean notifyRepeatedFailure</code></dt>
-  <dd>Send a notification for repeating build failures. Default: <code>false</code></dd>
-  <dt><code>boolean notifyBackToNormal</code></dt>
-  <dd>Send a notification for first successful build since non-successful build. Default: <code>true</code</dd>
-</dl>
+boolean notifySuccess
+    Send a notification for every successful build. Default: false
+boolean notifyAborted
+    Send a notification if a build is aborted. Default: true
+boolean notifyNotBuilt
+    Send a notification if a build is not built. Default: true
+boolean notifyUnstable
+    Send a notification if a build is unstable. Default: true
+boolean notifyFailure
+    Send a notification if a build fails. Default: true
+boolean notifyRepeatedFailure
+    Send a notification for repeating build failures. Default: false
+boolean notifyBackToNormal
+    Send a notification for first successful build since non-successful build. Default: true
