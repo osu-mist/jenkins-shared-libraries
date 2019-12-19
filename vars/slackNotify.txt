@@ -1,0 +1,28 @@
+<pre>
+  <code>slackNotify(def currentBuild)</code>
+</pre>
+
+<pre>
+  <code>slackNotify(def currentBuild, Map configMap)</code>
+</pre>
+
+<p></p>
+
+<code>configMap</code> has the following properties:
+
+<dl>
+  <dt><code>boolean notifySuccess</code></dt>
+  <dd>Send a notification for every successful build. Default: <code>false</code></dd>
+  <dt><code>boolean notifyAborted</code></dt>
+  <dd>Send a notification if a build is aborted. Default: <code>true</code></dd>
+  <dt><code>boolean notifyNotBuilt</code></dt>
+  <dd>Send a notification if a build is not built. Default: <code>true</code></dd>
+  <dt><code>boolean notifyUnstable</code></dt>
+  <dd>Send a notification if a build is unstable. Default: <code>true</code></dd>
+  <dt><code>boolean notifyFailure</code></dt>
+  <dd>Send a notification if a build fails. Default: <code>true</code></dd>
+  <dt><code>boolean notifyRepeatedFailure</code></dt>
+  <dd>Send a notification for repeating build failures. Default: <code>false</code></dd>
+  <dt><code>boolean notifyBackToNormal</code></dt>
+  <dd>Send a notification for first successful build since non-successful build. Default: <code>true</code</dd>
+</dl>
