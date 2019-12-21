@@ -57,14 +57,10 @@ ${Util.getTimeSpanString(currentBuild.duration)} - ${message}"
   } else if (currentBuild.result == 'UNSTABLE' && config.notifyUnstable) {
     slackSend(message: formatMessage('Unstable'), color: unstableColor)
   } else if (currentBuild.result == 'FAILURE' && config.notifyFailure) {
-    if (
-      currentBuild.previousBuild?.result
-      && currentBuild.previousBuild.result == 'FAILURE'
-      && config.notifyRepeatedFailure
-    ) {
-      slackSend(message: formatMessage('Still failing'), color: failureColor)
-    } else {
+    if (currentBuild.previousBuild?.result != 'FAILURE') {
       slackSend(message: formatMessage('Failure'), color: failureColor)
+    } else if (config.notifyRepeatedFailure) {
+      slackSend(message: formatMessage('Still failing'), color: failureColor)
     }
   }
 }
